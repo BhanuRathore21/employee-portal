@@ -24,8 +24,6 @@
                     <!-- /Logo -->
 
                     <div class="card-body mt-2">
-                        <h4 class="mb-2">Welcome to My App! 👋</h4>
-                        <p class="mb-4">Please sign-in to your account and start the adventure</p>
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 @foreach ($errors->all() as $error)
@@ -42,7 +40,7 @@
                             method="POST">
                             @csrf <!-- Include CSRF token for form submission -->
                             <div class="form-floating form-floating-outline mb-3">
-                                <input type="text" class="form-control" id="email" name="email"
+                                <input type="text" class="form-control" id="login" name="login"
                                     placeholder="Enter your email or username" autofocus>
                                 <label for="email">Email or Username</label>
                             </div>
@@ -75,16 +73,8 @@
                                 <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
                             </div>
                         </form>
-
-                        <p class="text-center">
-                            <span>New on our platform?</span>
-                            <a href="{{ url('auth/register-basic') }}">
-                                <span>Create an account</span>
-                            </a>
-                        </p>
                     </div>
                 </div>
-                <!-- /Login -->
                 <img src="{{ asset('assets/img/illustrations/tree-3.png') }}" alt="auth-tree"
                     class="authentication-image-object-left d-none d-lg-block">
                 <img src="{{ asset('assets/img/illustrations/auth-basic-mask-light.png') }}"

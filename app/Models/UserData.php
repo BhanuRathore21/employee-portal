@@ -14,7 +14,7 @@ class UserData extends Model
      *
      * @var string
      */
-    protected $table = 'user_data';
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -22,10 +22,11 @@ class UserData extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
+        'username',
         'first_name',
         'last_name',
         'email',
+        'email_verified_at',
         'organization',
         'phone_number',
         'address',
@@ -33,8 +34,6 @@ class UserData extends Model
         'zip_code',
         'country',
         'language',
-        'time_zone',
-        'currency',
     ];
 
     /**

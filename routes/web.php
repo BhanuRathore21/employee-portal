@@ -6,7 +6,6 @@ use App\Http\Controllers\pages\AccountSettingsAccount;
 use App\Http\Controllers\pages\AccountSettingsNotifications;
 use App\Http\Controllers\pages\AccountSettingsConnections;
 use App\Http\Controllers\authentications\LoginBasic;
-use App\Http\Controllers\authentications\RegisterBasic;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
 use App\Http\Controllers\authentications\LogoutBasic;
 use App\Http\Controllers\users\UsersList;
@@ -25,8 +24,6 @@ Route::get('/pages/account-settings-connections', [AccountSettingsConnections::c
 
 // authentication
 Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
-Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
-Route::post('/auth/register-basic', [RegisterBasic::class, 'register'])->name('auth.register.basic.submit');
 Route::post('/auth/login-basic', [LoginBasic::class, 'logincheck'])->name('auth.login.basic.submit');
 Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
 Route::get('/logout', [LogoutBasic::class, 'logout'])->name('logout');
