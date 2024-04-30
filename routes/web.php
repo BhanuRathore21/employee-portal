@@ -18,7 +18,8 @@ Route::get('/', [LoginBasic::class, 'index'])->name('auth-login-basic');
 Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboards-analytics');
 Route::get('/users', [UsersList::class, 'index'])->name('users-list');
 Route::get('/project-list', [ProjectList::class, 'index'])->name('projectlist');
-Route::get('/project-add', [ProjectController::class, 'create'])->name('project-list.create');
+Route::get('/project-add', [ProjectController::class, 'create'])->name('project_list.create');
+Route::post('/project-add', [ProjectController::class, 'store'])->name('project_list.create.submit');
 // pages
 Route::get('/pages/account-settings-account', [AccountSettingsAccount::class, 'index'])->name('pages-account-settings-account');
 Route::post('/pages/account-settings-account', [AccountSettingsAccount::class, 'save_setting'])->name('pages.account.settings.account.submit');

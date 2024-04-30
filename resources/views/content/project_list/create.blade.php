@@ -5,12 +5,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Add New Project</div>
-
+                <h3 class="m-3">Add New Project</h3>
                 <div class="card-body">
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ route('project_list.create.submit') }}">
                         @csrf
 
                         <div class="form-group">
@@ -25,7 +24,11 @@
 
                         <div class="form-group">
                             <label for="employee">Employee</label>
-                            <input id="employee" type="text" class="form-control @error('employee') is-invalid @enderror" name="employee" value="{{ old('employee') }}" required autocomplete="employee">
+                            <select name="employee[]" id="employee" class="form-control @error('employee') is-invalid @enderror" multiple required>
+                                @foreach($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->username }}</option>
+                                @endforeach
+                            </select>                                                      
                             @error('employee')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -45,7 +48,7 @@
 
                         <!-- Add other fields as needed -->
 
-                        <button type="submit" class="btn btn-primary">Add Project</button>
+                        <button type="submit" class="btn btn-primary mt-3" style="float: right;">Add Project</button>
                     </form>
                 </div>
             </div>
