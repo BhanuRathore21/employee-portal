@@ -13,6 +13,12 @@
       "slug": "users"
     },
     {
+      "url": "/project-list",
+      "name": "Project List",
+      "icon": "menu-icon tf-icons mdi mdi-folder-outline",
+      "slug": "users"
+    },
+    {
       "name": "Account",
       "icon": "menu-icon tf-icons mdi mdi-information-outline",
       "slug": "pages-account-settings",
