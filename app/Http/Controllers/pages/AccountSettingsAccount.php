@@ -55,7 +55,7 @@ class AccountSettingsAccount extends Controller
     ];
 
     $userId = Auth::id();
-    $userData = UserData::where('user_id', $userId)->first();
+    $userData = UserData::where('id', $userId)->first();
     //dd($userData);
     //dd($userData->time_zone);
     return view('content.pages.pages-account-settings-account', [
