@@ -24,7 +24,6 @@ class GoogleLoginController extends Controller
             if ($existingUser) {
                 Auth::login($existingUser);
             } else {
-                // Create new user
                 $newUser = new User();
                 $newUser->username = $user->name;
                 $newUser->email = $user->email;
@@ -37,8 +36,7 @@ class GoogleLoginController extends Controller
                 $newUser->save();
                 Auth::login($newUser);
             }
-
-            return redirect()->intended('/'); // Redirect to home page after login
+            return redirect("/");
 
         } catch (Exception $e) {
             dd($e->getMessage());
