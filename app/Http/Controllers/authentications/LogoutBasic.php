@@ -10,6 +10,14 @@ class LogoutBasic extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect('/');
+        $checkuser=session('usertype');
+        $url='';
+        if($checkuser == 'admin'){
+            $url= '/admin';
+        }else{
+            $url= '/';
+        }
+        $request->session()->forget('usertype');
+        return redirect($url);
     }
 }
