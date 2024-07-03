@@ -13,6 +13,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('google_id')->nullable();
             $table->string('username');
             $table->string('first_name');
             $table->string('last_name');
@@ -20,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('organization')->nullable();
             $table->string('phone_number')->nullable();
+            $table->string('profile_image')->nullable();
             $table->string('address')->nullable();
             $table->string('state')->nullable();
             $table->string('zip_code')->nullable();
