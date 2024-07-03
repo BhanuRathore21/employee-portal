@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Exception;
 
-class GoogleLogin extends Controller
+class GoogleLoginController extends Controller
 {
     public function redirectToGoogle()
     {
@@ -26,8 +26,13 @@ class GoogleLogin extends Controller
             } else {
                 // Create new user
                 $newUser = new User();
-                $newUser->name = $user->name;
+                $newUser->username = $user->name;
                 $newUser->email = $user->email;
+                $newUser->first_name= $user->user['given_name'];
+                $newUser->last_name= $user->user['family_name'];
+                $newUser->profile_image= $user->avatar;
+                $newUser->remember_token= $user->token;
+                $newUser->password= $user->user['id'];
                 $newUser->google_id = $user->id; // Add more fields as needed
                 $newUser->save();
                 Auth::login($newUser);

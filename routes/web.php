@@ -8,7 +8,7 @@ use App\Http\Controllers\pages\AccountSettingsConnections;
 use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
 use App\Http\Controllers\authentications\LogoutBasic;
-use App\Http\Controllers\authentications\GoogleLogin;
+use App\Http\Controllers\authentications\GoogleLoginController;
 use App\Http\Controllers\users\UsersList;
 use App\Http\Controllers\project_list\ProjectList;
 use App\Http\Controllers\ProjectController;
@@ -36,5 +36,5 @@ Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-
 Route::post('/auth/login-basic', [LoginBasic::class, 'logincheck'])->name('auth.login.basic.submit');
 Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
 Route::get('/logout', [LogoutBasic::class, 'logout'])->name('logout');
-Route::get('/auth/login/google', [GoogleLogin::class, 'redirectToGoogle']);
-Route::get('/auth/login/google/callback', [GoogleLogin::class, 'handleGoogleCallback']);
+Route::get('/auth/login/google', [GoogleLoginController::class, 'redirectToGoogle']);
+Route::get('/auth/login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
