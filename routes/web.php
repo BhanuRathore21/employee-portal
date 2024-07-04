@@ -6,6 +6,7 @@ use App\Http\Controllers\pages\AccountSettingsAccount;
 use App\Http\Controllers\pages\AccountSettingsNotifications;
 use App\Http\Controllers\pages\AccountSettingsConnections;
 use App\Http\Controllers\authentications\LoginBasic;
+use App\Http\Controllers\authentications\AdminLoginBasic;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
 use App\Http\Controllers\authentications\LogoutBasic;
 use App\Http\Controllers\authentications\GoogleLoginController;
@@ -14,7 +15,7 @@ use App\Http\Controllers\project_list\ProjectList;
 use App\Http\Controllers\ProjectController;
 
 // Main Page Route
-Route::get('/', [LoginBasic::class, 'index'])->name('auth-login-basic');
+Route::get('/', [LoginBasic::class, 'userlogin'])->name('auth-login-users');
 
 Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboards-analytics');
 Route::get('/users', [UsersList::class, 'index'])->name('users-list');
@@ -32,9 +33,15 @@ Route::get('/pages/account-settings-notifications', [AccountSettingsNotification
 Route::get('/pages/account-settings-connections', [AccountSettingsConnections::class, 'index'])->name('pages-account-settings-connections');
 
 // authentication
-Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
-Route::post('/auth/login-basic', [LoginBasic::class, 'logincheck'])->name('auth.login.basic.submit');
+Route::get('/auth/login-basic', [LoginBasic::class, 'userlogin'])->name('auth-login-users');
+Route::post('/auth/login-basic', [LoginBasic::class, 'logincheckuser'])->name('auth.login.users.submit');
+
+Route::get('/admin', [AdminLoginBasic::class, 'adminlogin'])->name('auth-login-basic');
+Route::post('/admin', [AdminLoginBasic::class, 'logincheckadmin'])->name('auth.login.basic.submit');
+
 Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
+
 Route::get('/logout', [LogoutBasic::class, 'logout'])->name('logout');
+
 Route::get('/auth/login/google', [GoogleLoginController::class, 'redirectToGoogle']);
 Route::get('/auth/login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
