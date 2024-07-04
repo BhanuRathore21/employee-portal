@@ -6,7 +6,11 @@
       <span class="app-brand-logo demo me-1">
         @include('_partials.macros',["height"=>20])
       </span>
+<<<<<<< HEAD
       <span class="app-brand-text demo menu-text fw-semibold ms-2">Source App</span>
+=======
+      <span class="app-brand-text demo menu-text fw-semibold ms-2">MeshConnect</span>
+>>>>>>> d3a871268d819fe4fc757cf6e341667643d116fe
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
