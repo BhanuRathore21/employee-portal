@@ -2,6 +2,12 @@
 $containerNav = $containerNav ?? 'container-fluid';
 $navbarDetached = ($navbarDetached ?? '');
 $currentUrl = request()->path();
+$role = '';
+if(session('usertype')=='user'){
+  $role='User';
+}else{
+  $role='Admin';
+}
 @endphp
 
 <!-- Navbar -->
@@ -63,8 +69,8 @@ $currentUrl = request()->path();
                       </div>
                     </div>
                     <div class="flex-grow-1">
-                      <h6 class="mb-0">John Doe</h6>
-                      <small class="text-muted">Admin</small>
+                      <h6 class="mb-0">{{$userData->username}}</h6>
+                      <small class="text-muted">{{$role}}</small>
                     </div>
                   </div>
                 </a>
