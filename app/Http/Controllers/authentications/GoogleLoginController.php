@@ -32,7 +32,7 @@ class GoogleLoginController extends Controller
                 $newUser->profile_image= $user->avatar;
                 $newUser->remember_token= $user->token;
                 $newUser->password= $user->user['id'];
-                $newUser->google_id = $user->id; // Add more fields as needed
+                $newUser->google_id = $user->id;
                 $newUser->save();
                 Auth::login($newUser);
             }

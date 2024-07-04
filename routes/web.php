@@ -45,9 +45,6 @@ Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])
 Route::get('/logout', [LogoutBasic::class, 'logout'])->name('logout');
 
 
-Route::get('/auth/login/google', [GoogleAuthController::class, 'redirectToGoogle']);
-Route::get('/auth/login/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
-
 Route::get('/auth/login/google', [GoogleLoginController::class, 'redirectToGoogle']);
 Route::get('/auth/login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
 
