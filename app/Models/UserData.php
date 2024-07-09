@@ -33,7 +33,9 @@ class UserData extends Model
         'state',
         'zip_code',
         'country',
+        'time_zone',
         'language',
+        'currency',
     ];
 
     /**

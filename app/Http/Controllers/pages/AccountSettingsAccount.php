@@ -56,8 +56,6 @@ class AccountSettingsAccount extends Controller
 
     $userId = Auth::id();
     $userData = UserData::where('id', $userId)->first();
-    //dd($userData);
-    //dd($userData->time_zone);
     return view('content.pages.pages-account-settings-account', [
       'userData' => $userData,
       'countries' => $countries,
@@ -84,11 +82,12 @@ class AccountSettingsAccount extends Controller
       'avatar' => 'nullable|image|mimes:jpeg,png|max:800',
     ]);
     $userId = Auth::id();
-    $userData = UserData::where('user_id', $userId)->first();
+    $userData = UserData::where('id', $userId)->first();
     if (!$userData) {
       $userData = new UserData();
-      $userData->user_id = $userId;
+      $userData->id = $userId;
     }
+    // dd($request);
     $userData->first_name = $request->input('firstName');
     $userData->last_name = $request->input('lastName');
     $userData->email = $request->input('email');
@@ -101,12 +100,13 @@ class AccountSettingsAccount extends Controller
     $userData->language = $request->input('language');
     $userData->time_zone = $request->input('timeZones');
     $userData->currency = $request->input('currency');
+    $userData->remember_token = $request->input('_token');
     if ($request->hasFile('avatar')) {
       $avatar = $request->file('avatar');
       $avatarPath = $avatar->store('avatars', 'public');
-      $publicImagePath = 'storage/' . $avatarPath;
-      $userData = UserData::firstOrNew(['user_id' => auth()->id()]);
-      $userData->img = $publicImagePath;
+      $publicImagePath = $avatarPath;
+      $userData = UserData::firstOrNew(['id' => auth()->id()]);
+      $userData->profile_image = $publicImagePath;
     }
     $userData->save();
     return redirect()->back()->with('success', 'Account settings updated successfully.');
