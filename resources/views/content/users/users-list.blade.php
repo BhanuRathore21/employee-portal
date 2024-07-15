@@ -11,7 +11,13 @@
     <!-- Data Tables -->
     <div class="col-12">
         <div class="card">
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
             <div class="table-responsive">
+                <a href="{{ route('users-create') }}" class="btn btn-primary m-3 add-project" style="float: right;">+ User</a>
                 <table class="table">
                     <thead class="table-light">
                         <tr>

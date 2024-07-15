@@ -9,7 +9,6 @@ use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\authentications\AdminLoginBasic;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
 use App\Http\Controllers\authentications\LogoutBasic;
-use App\Http\Controllers\authentications\GoogleAuthController;
 use App\Http\Controllers\authentications\GoogleLoginController;
 use App\Http\Controllers\users\UsersList;
 use App\Http\Controllers\project_list\ProjectList;
@@ -20,6 +19,8 @@ Route::get('/', [LoginBasic::class, 'userlogin'])->name('auth-login-users');
 
 Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboards-analytics');
 Route::get('/users', [UsersList::class, 'index'])->name('users-list');
+Route::get('/users/create', [UsersList::class, 'create'])->name('users-create');
+Route::post('/users/create', [UsersList::class, 'createsubmit'])->name('users-create.submit');
 Route::get('/project-list', [ProjectList::class, 'index'])->name('projectlist');
 Route::get('/project-add', [ProjectController::class, 'list'])->name('project_list.create');
 Route::post('/project-add', [ProjectController::class, 'store'])->name('project_list.create.submit');

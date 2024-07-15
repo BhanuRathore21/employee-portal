@@ -16,4 +16,18 @@ class UsersList extends Controller
       'userDataCollection' => $userDataCollection
     ]);
   }
+
+  public function create(){
+    return view('content.users.users-create');
+  }
+
+  public function createsubmit(Request $request){
+  $request->validate([
+      'name' => 'required',
+      'email' => 'required|email|unique:users,email',
+      'password' => 'required|min:6',
+  ]);
+  User::create($request->all());
+  return redirect()->route('users.index')->with('success', 'User created successfully');
+  }
 }

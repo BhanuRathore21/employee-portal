@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
             $table->string('currency')->nullable();
             $table->string('language')->nullable();
             $table->string('password');
+            $table->integer('active');
             $table->rememberToken();
             $table->timestamps();
         });

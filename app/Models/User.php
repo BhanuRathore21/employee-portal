@@ -31,6 +31,7 @@
             'country',
             'language',
             'password',
+            'active',
         ];
 
         /**

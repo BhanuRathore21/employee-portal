@@ -36,6 +36,7 @@ class UserData extends Model
         'time_zone',
         'language',
         'currency',
+        'active',
     ];
 
     /**
