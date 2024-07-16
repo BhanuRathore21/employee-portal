@@ -1,56 +1,56 @@
 <?php
 
-    namespace App\Models;
+namespace App\Models;
 
-    // use Illuminate\Contracts\Auth\MustVerifyEmail;
-    use Illuminate\Database\Eloquent\Factories\HasFactory;
-    use Illuminate\Foundation\Auth\User as Authenticatable;
-    use Illuminate\Notifications\Notifiable;
-    use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-    class User extends Authenticatable
-    {
-        use HasApiTokens, HasFactory, Notifiable;
+class User extends Authenticatable
+{
+    use HasApiTokens, HasFactory, Notifiable;
 
-        /**
-         * The attributes that are mass assignable.
-         *
-         * @var array<int, string>
-         */
-        protected $fillable = [
-            'username',
-            'first_name',
-            'last_name',
-            'email',
-            'email_verified_at',
-            'organization',
-            'phone_number',
-            'address',
-            'state',
-            'zip_code',
-            'country',
-            'language',
-            'password',
-            'active',
-        ];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'username',
+        'first_name',
+        'last_name',
+        'email',
+        'organization',
+        'phone_number',
+        'address',
+        'state',
+        'zip_code',
+        'country',
+        'language',
+        'password',
+        'active',
+        'profile_image', // Added for profile image
+    ];
 
-        /**
-         * The attributes that should be hidden for serialization.
-         *
-         * @var array<int, string>
-         */
-        protected $hidden = [
-            'password',
-            'remember_token',
-        ];
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-        /**
-         * The attributes that should be cast.
-         *
-         * @var array<string, string>
-         */
-        protected $casts = [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+}

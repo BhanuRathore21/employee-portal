@@ -26,6 +26,8 @@ class AuthController extends Controller {
             'country' => 'nullable|string',
             'language' => 'nullable|string',
             'password' => 'required|string|min:6',
+            'time_zone' => 'nullable|string',
+            'currency' => 'nullable|string',
         ]);
     
         $user = User::create([
@@ -41,6 +43,8 @@ class AuthController extends Controller {
             'country' => $request->country,
             'language' => $request->language,
             'password' => Hash::make($request->password),
+            'time_zone' => $request->time_zone,
+            'currency' => $request->currency,
         ]);
     
         return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
