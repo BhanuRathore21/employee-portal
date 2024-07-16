@@ -14,7 +14,9 @@
         {{ session('success') }}
     </div>
     @endif
+    @if(session('usertype') === 'admin')
     <a href="{{ route('project_list.create') }}" class="btn btn-primary m-3 add-project" style="float: right;">+ Project</a>
+    @endif
     <table class="table">
       <thead>
         <tr>

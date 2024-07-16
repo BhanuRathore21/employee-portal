@@ -140,7 +140,7 @@
                             <div class="form-group mb-3">
                                 <label for="country">Country</label>
                                 <select id="country" class="form-select" name="country">
-                                    <option value="">Select</option>
+                                    <option value="">Select Country</option>
                                     @foreach ($countries as $country)
                                         <option value="{{ $country }}">{{ $country }}</option>
                                     @endforeach
