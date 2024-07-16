@@ -15,7 +15,7 @@
     </div>
     @endif
     @if(session('usertype') === 'admin')
-    <a href="{{ route('project_list.create') }}" class="btn btn-primary m-3 add-project" style="float: right;">+ Project</a>
+    <a href="{{ route('project_list.create') }}" class="btn btn-primary m-3 add-project" style="float: right;"><i class="fa-solid fa-folder-plus fa-lg"></i></a>
     @endif
     <table class="table">
       <thead>

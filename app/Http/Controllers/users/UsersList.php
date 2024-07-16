@@ -70,22 +70,23 @@ class UsersList extends Controller
 
   public function CreateSubmit(Request $request)
 {
-    $request->validate([
-        'username' => 'required|string',
-        'first_name' => 'required|string',
-        'last_name' => 'nullable|string',
-        'email' => 'required|email|unique:users,email',
-        'organization' => 'nullable|string',
-        'phone_number' => 'nullable|string',
-        'address' => 'nullable|string',
-        'state' => 'nullable|string',
-        'zip_code' => 'nullable|string',
-        'country' => 'nullable|string',
-        'language' => 'nullable|string',
-        'password' => 'required|string|min:6',
-        'time_zones' => 'nullable|string',
-        'currency' => 'nullable|string',
-    ]);
+  $request->validate([
+      'username' => 'required|string',
+      'first_name' => 'required|string',
+      'last_name' => 'nullable|string',
+      'email' => 'required|email|unique:users,email',
+      'organization' => 'nullable|string',
+      'phone_number' => 'nullable|string',
+      'address' => 'nullable|string',
+      'state' => 'nullable|string',
+      'zip_code' => 'nullable|string',
+      'country' => 'nullable|string',
+      'language' => 'nullable|string',
+      'password' => 'required|string|min:6',
+      'time_zones' => 'nullable|string',
+      'currency' => 'nullable|string',
+  ]);
+
     $userData = [
         'username' => $request->username,
         'first_name' => $request->first_name,
@@ -101,6 +102,7 @@ class UsersList extends Controller
         'password' => Hash::make($request->password),
         'time_zones' => $request->time_zones,
         'currency' => $request->currency,
+        'active' => 1,
     ];
     if ($request->hasFile('avatar')) {
         $avatar = $request->file('avatar');

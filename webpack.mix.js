@@ -9,6 +9,10 @@ const path = require('path');
  |--------------------------------------------------------------------------
  */
 
+ mix.js('resources/js/app.js', 'public/js')
+    .copy('node_modules/@fortawesome/fontawesome-svg-core/styles.css', 'public/css/fontawesome-svg-core.css')
+    .copy('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/webfonts');
+
 mix.options({
   resourceRoot: process.env.ASSET_URL || undefined,
   processCssUrls: false,

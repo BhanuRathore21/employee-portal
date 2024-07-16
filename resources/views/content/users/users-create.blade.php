@@ -1,6 +1,5 @@
 <!-- resources/views/User/user-create.blade.php -->
 @extends('layouts/contentNavbarLayout')
-
 @section('title', 'User Create')
 @section('content')
     <div class="container">
@@ -9,7 +8,7 @@
                 <div class="row mt-2 gy-4">
                     <h3 class="m-3">Add New User</h3>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('users-create.submit') }}">
+                        <form method="POST" action="{{ route('users-create.submit') }}"  enctype="multipart/form-data">
                             @csrf
                             <div class="button-wrapper">
                                 <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
@@ -34,10 +33,10 @@
 
                             <div class="form-group mb-3">
                                 <label for="name">First Name</label>
-                                <input id="first-name" type="text"
-                                    class="form-control @error('first-name') is-invalid @enderror" name="first-name"
-                                    value="{{ old('first-name') }}" required autocomplete="first-name" autofocus>
-                                @error('first-name')
+                                <input id="first_name" type="text"
+                                    class="form-control @error('first_name') is-invalid @enderror" name="first_name"
+                                    value="{{ old('first_name') }}" required autocomplete="first name" autofocus>
+                                @error('first_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -46,10 +45,10 @@
 
                             <div class="form-group mb-3">
                                 <label for="client">Last Name</label>
-                                <input id="last-name" type="text"
-                                    class="form-control @error('last-name') is-invalid @enderror" name="last-name"
-                                    value="{{ old('last-name') }}" required autocomplete="last-name">
-                                @error('last-name')
+                                <input id="last_name" type="text"
+                                    class="form-control @error('last_name') is-invalid @enderror" name="last_name"
+                                    value="{{ old('last_name') }}" required autocomplete="last_name">
+                                @error('last_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

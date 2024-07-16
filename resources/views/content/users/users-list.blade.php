@@ -12,12 +12,12 @@
     <div class="col-12">
         <div class="card">
             @if(session('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success m-1">
                 {{ session('success') }}
             </div>
             @endif
             <div class="table-responsive">
-                <a href="{{ route('users-create') }}" class="btn btn-primary m-3 add-project" style="float: right;">+ User</a>
+                <a href="{{ route('users-create') }}" class="btn btn-primary m-3 add-project" style="float: right;"><i class="fa-solid fa-user-plus fa-lg"></i></a>
                 <table class="table">
                     <thead class="table-light">
                         <tr>
@@ -35,13 +35,11 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="avatar avatar-sm me-3">
-                                            @php
-                                                $defaultImage = '1.png';
-                                                $avatarUrl = !empty($userData->img)
-                                                    ? asset($userData->img)
-                                                    : asset('assets/img/avatars/' . $defaultImage);
-                                            @endphp
-                                            <img src="{{ $avatarUrl }}" alt="Avatar" class="rounded-circle">
+                                            @if ($userData->profile_image)
+                                            <img src="{{ asset('storage/' . $userData->profile_image) }}" alt="Avatar" class="rounded-circle">
+                                            @else
+                                                <img src="{{ asset('assets/img/avatars/1.png') }}" alt="Avatar" class="rounded-circle">
+                                            @endif
                                         </div>
                                         <div>
                                             <h6 class="mb-0 text-truncate">{{ $userData->first_name }}
@@ -67,10 +65,8 @@
                                 <td class="text-truncate">{{ $userData->currency }}</td>
                                 <td class="text-truncate">{{ $userData->created_at->format('Y-m-d') }}</td>
                                 <td>
-                                    @if ($userData->status == 'active')
+                                    @if ($userData->active == 1)
                                         <span class="badge bg-label-success rounded-pill">Active</span>
-                                    @elseif ($userData->status == 'pending')
-                                        <span class="badge bg-label-warning rounded-pill">Pending</span>
                                     @else
                                         <span class="badge bg-label-secondary rounded-pill">Inactive</span>
                                     @endif
