@@ -23,7 +23,6 @@
                         <tr>
                             <th class="text-truncate">User</th>
                             <th class="text-truncate">Email</th>
-                            <th class="text-truncate">Role</th>
                             <th class="text-truncate">Currency</th>
                             <th class="text-truncate">Created</th>
                             <th class="text-truncate">Status</th>
@@ -50,19 +49,6 @@
                                     </div>
                                 </td>
                                 <td class="text-truncate">{{ $userData->email }}</td>
-                                <td class="text-truncate">
-                                    @if ($userData->role == 'admin')
-                                        <i class="mdi mdi-laptop mdi-24px text-danger me-1"></i> Admin
-                                    @elseif ($userData->role == 'editor')
-                                        <i class="mdi mdi-pencil-outline text-info mdi-24px me-1"></i> Editor
-                                    @elseif ($userData->role == 'author')
-                                        <i class="mdi mdi-cog-outline text-warning mdi-24px me-1"></i> Author
-                                    @elseif ($userData->role == 'maintainer')
-                                        <i class="mdi mdi-chart-donut mdi-24px text-success me-1"></i> Maintainer
-                                    @else
-                                        <i class="mdi mdi-account-outline mdi-24px text-primary me-1"></i> Subscriber
-                                    @endif
-                                </td>
                                 <td class="text-truncate">{{ $userData->currency }}</td>
                                 <td class="text-truncate">{{ $userData->created_at->format('Y-m-d') }}</td>
                                 <td>
@@ -74,7 +60,13 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('users.users-update', ['id' => $userData->id]) }}"><i class="fas fa-edit fa-lg"></i> </a>
-                                    <a href="{{ route('users-create') }}"><i class="fas fa-trash fa-lg"></i>  </a>
+                                    <form id="delete-form-{{ $userData->id }}" action="{{ route('users.delete', ['user' => $userData->id]) }}" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                    <a href="#" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-{{ $userData->id }}').submit(); }">
+                                        <i class="fas fa-trash fa-lg"></i>
+                                     </a>
                                 </td>
                             </tr>
                         @endforeach

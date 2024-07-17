@@ -229,4 +229,20 @@ class UsersList extends Controller
       return redirect()->back()->with('error', 'Error updating user. Please try again.');
     }
   }
+
+  public function delete($id)
+{
+    $user = User::find($id);
+    if (!$user) {
+        return redirect()->back()->with('error', 'User not found.');
+    }
+
+    try {
+        $user->delete();
+        return redirect()->route('users-list')->with('success', 'User deleted successfully.');
+    } catch (\Exception $e) {
+        \Log::error('Error deleting user: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Error deleting user. Please try again.');
+    }
+}
 }
