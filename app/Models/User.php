@@ -25,10 +25,13 @@ class User extends Authenticatable
         'state',
         'zip_code',
         'country',
+        'time_zones',
+        'currency',
         'language',
         'password',
         'active',
-        'profile_image', // Added for profile image
+        'profile_image', 
+        // Added for profile image
     ];
 
     /**

@@ -21,6 +21,8 @@ Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboards-analytic
 Route::get('/users', [UsersList::class, 'index'])->name('users-list');
 Route::get('/users/create', [UsersList::class, 'create'])->name('users-create');
 Route::post('/users/create', [UsersList::class, 'CreateSubmit'])->name('users-create.submit');
+Route::get('/manage-user/{id}', [UsersList::class, 'manage'])->name('users.users-update');
+Route::post('/manage-user', [UsersList::class, 'edit'])->name('users.users-update.submit');
 Route::get('/project-list', [ProjectList::class, 'index'])->name('projectlist');
 Route::get('/project-add', [ProjectController::class, 'list'])->name('project_list.create');
 Route::post('/project-add', [ProjectController::class, 'store'])->name('project_list.create.submit');

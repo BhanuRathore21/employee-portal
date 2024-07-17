@@ -54,13 +54,8 @@
         <td><span class="badge rounded-pill bg-label-primary me-1">{{ $project->active == 1 ? 'Active' : 'Inactive' }}</span></td>
         <td><strong>{{ $project->created_at->format('d F Y g:i A') }}</strong></td>
         <td>
-        <div class="dropdown">
-          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{ route('project_list.update', ['id' => $project->id]) }}"><i class="mdi mdi-pencil-outline me-1"></i> Edit</a>
-            <a class="dropdown-item" href="javascript:void(0);"><i class="mdi mdi-trash-can-outline me-1"></i> Delete</a>
-          </div>
-        </div>
+            <a href="{{ route('project_list.update', ['id' => $project->id]) }}"><i class="fas fa-edit fa-lg"></i></a>
+            <a href="javascript:void(0);"><i class="fas fa-trash fa-lg"></i></a>
       </td>
     </tr>
         @endforeach

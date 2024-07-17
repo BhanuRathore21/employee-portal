@@ -27,6 +27,7 @@
                             <th class="text-truncate">Currency</th>
                             <th class="text-truncate">Created</th>
                             <th class="text-truncate">Status</th>
+                            <th class="text-truncate">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,6 +71,10 @@
                                     @else
                                         <span class="badge bg-label-secondary rounded-pill">Inactive</span>
                                     @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('users.users-update', ['id' => $userData->id]) }}"><i class="fas fa-edit fa-lg"></i> </a>
+                                    <a href="{{ route('users-create') }}"><i class="fas fa-trash fa-lg"></i>  </a>
                                 </td>
                             </tr>
                         @endforeach
