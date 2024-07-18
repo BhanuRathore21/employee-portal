@@ -26,7 +26,7 @@ class AuthController extends Controller {
             'country' => 'nullable|string',
             'language' => 'nullable|string',
             'password' => 'required|string|min:6',
-            'time_zone' => 'nullable|string',
+            'time_zones' => 'nullable|string',
             'currency' => 'nullable|string',
         ]);
     
@@ -43,7 +43,7 @@ class AuthController extends Controller {
             'country' => $request->country,
             'language' => $request->language,
             'password' => Hash::make($request->password),
-            'time_zone' => $request->time_zone,
+            'time_zones' => $request->time_zone,
             'currency' => $request->currency,
         ]);
     

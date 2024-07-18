@@ -98,7 +98,7 @@ class AccountSettingsAccount extends Controller
     $userData->zip_code = $request->input('zipCode');
     $userData->country = $request->input('country');
     $userData->language = $request->input('language');
-    $userData->time_zone = $request->input('timeZones');
+    $userData->time_zones = $request->input('timeZones');
     $userData->currency = $request->input('currency');
     $userData->remember_token = $request->input('_token');
     if ($request->hasFile('avatar')) {

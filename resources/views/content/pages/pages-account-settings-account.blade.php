@@ -142,7 +142,7 @@
                                         <option value="">Select Timezone</option>
                                         @foreach ($timeZones as $key => $timeZone)
                                             <option value="{{ $key }}"
-                                                {{ $userData->time_zone === $key ? 'selected' : '' }}>
+                                                {{ $userData->time_zones === $key ? 'selected' : '' }}>
                                                 {{ $timeZone }}
                                             </option>
                                         @endforeach
