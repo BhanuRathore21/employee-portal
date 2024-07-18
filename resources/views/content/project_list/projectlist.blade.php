@@ -55,7 +55,13 @@
         <td><strong>{{ $project->created_at->format('d F Y g:i A') }}</strong></td>
         <td>
             <a href="{{ route('project_list.update', ['id' => $project->id]) }}"><i class="fas fa-edit fa-lg"></i></a>
-            <a href="javascript:void(0);"><i class="fas fa-trash fa-lg"></i></a>
+            <form id="delete-form-{{ $project->id }}" action="{{ route('project_list.delete', ['id' => $userData->id]) }}" method="POST" style="display: none;">
+                @csrf
+                @method('DELETE')
+            </form>
+            <a href="#" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-{{ $project->id }}').submit(); }">
+                <i class="fas fa-trash fa-lg"></i>
+             </a>
       </td>
     </tr>
         @endforeach

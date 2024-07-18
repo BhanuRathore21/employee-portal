@@ -34,4 +34,68 @@ class ProjectList extends Controller
   
       return view('content.project_list.projectlist', ['projects' => $projects]);
   }
+  public function list()
+  {
+    $users = User::where('type', 'user')->get();
+      return view('content.project_list.create',['users' => $users]);
+  }
+  public function store(Request $request)
+  {
+      $request->validate([
+          'name' => 'required',
+          'employee' => 'required|array',
+          'employee.*' => 'exists:users,id', 
+          'client' => 'required',
+          'created_at'=>'nullable|string|max:255',
+          'updated_at'=>'nullable|string|max:255',
+          'active'=>'nullable|string|max:1'
+      ]);
+  
+      $employeeIds = implode(',', $request->input('employee'));
+
+      Project::create(array_merge($request->except('employee'), ['employee' => $employeeIds]));
+  
+      return redirect()->route('projectlist')->with('success', 'Project added successfully!');
+  }
+
+  public function edit(Request $request)
+  {
+      $request->validate([
+          'name' => 'required',
+          'employee' => 'required|array',
+          'employee.*' => 'exists:users,id', 
+          'client' => 'required',
+          'created_at'=>'nullable|string|max:255',
+          'updated_at'=>'nullable|string|max:255',
+          'active'=>'nullable|string|max:1'
+      ]);
+  
+      $employeeIds = implode(',', $request->input('employee'));
+
+      Project::update(array_merge($request->except('employee'), ['employee' => $employeeIds]));
+  
+      return redirect()->route('projectlist')->with('success', 'Project Updated successfully!');
+  }
+
+  public function manage($id)
+  {
+      $project = Project::findOrFail($id);
+      $users = User::all();
+      return view('content.project_list.update',['users' => $users,'project'=>$project]);
+  }
+  public function delete($id)
+  {
+      $project = Project::find($id);
+      if (!$project) {
+          return redirect()->back()->with('error', 'project not found.');
+      }
+  
+      try {
+          $project->delete();
+          return redirect()->route('projectlist')->with('success', 'Project deleted successfully.');
+      } catch (\Exception $e) {
+          \Log::error('Error deleting user: ' . $e->getMessage());
+          return redirect()->back()->with('error', 'Error deleting user. Please try again.');
+      }
+  }
 }
