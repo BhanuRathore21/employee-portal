@@ -211,6 +211,7 @@ class UsersList extends Controller
       'time_zones' => $request->time_zones,
       'currency' => $request->currency,
       'active' => 1,
+      'type'=> 'user',
       'updated_at'=>$currentDateTime,
     ];
 

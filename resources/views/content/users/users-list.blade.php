@@ -60,7 +60,7 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('users.users-update', ['id' => $userData->id]) }}"><i class="fas fa-edit fa-lg"></i> </a>
-                                    <form id="delete-form-{{ $userData->id }}" action="{{ route('users.delete', ['user' => $userData->id]) }}" method="POST" style="display: none;">
+                                    <form id="delete-form-{{ $userData->id }}" action="{{ route('users.delete', ['id' => $userData->id]) }}" method="POST" style="display: none;">
                                         @csrf
                                         @method('DELETE')
                                     </form>

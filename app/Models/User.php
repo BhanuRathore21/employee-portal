@@ -30,6 +30,7 @@ class User extends Authenticatable
         'language',
         'password',
         'active',
+        'type',
         'profile_image', 
         // Added for profile image
     ];
