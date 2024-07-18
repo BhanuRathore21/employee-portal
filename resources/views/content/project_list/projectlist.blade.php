@@ -55,7 +55,7 @@
         <td><strong>{{ $project->created_at->format('d F Y g:i A') }}</strong></td>
         <td>
             <a href="{{ route('project_list.update', ['id' => $project->id]) }}"><i class="fas fa-edit fa-lg"></i></a>
-            <form id="delete-form-{{ $project->id }}" action="{{ route('project_list.delete', ['id' => $userData->id]) }}" method="POST" style="display: none;">
+            <form id="delete-form-{{ $project->id }}" action="{{ route('project_list.delete', ['id' => $project->id]) }}" method="POST" style="display: none;">
                 @csrf
                 @method('DELETE')
             </form>
