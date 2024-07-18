@@ -31,6 +31,7 @@
                     </thead>
                     <tbody>
                         @foreach ($userDataCollection as $userData)
+                        @if($userData->type =='user')
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
@@ -69,6 +70,7 @@
                                      </a>
                                 </td>
                             </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>
