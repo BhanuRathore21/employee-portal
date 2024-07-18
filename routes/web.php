@@ -12,7 +12,6 @@ use App\Http\Controllers\authentications\LogoutBasic;
 use App\Http\Controllers\authentications\GoogleLoginController;
 use App\Http\Controllers\users\UsersList;
 use App\Http\Controllers\project_list\ProjectList;
-use App\Http\Controllers\ProjectController;
 
 // Main Page Route
 Route::get('/', [LoginBasic::class, 'userlogin'])->name('auth-login-users');
@@ -25,10 +24,11 @@ Route::get('/manage-user/{id}', [UsersList::class, 'manage'])->name('users.users
 Route::post('/manage-user', [UsersList::class, 'edit'])->name('users.users-update.submit');
 Route::delete('user/delete/{id}', [UsersList::class, 'delete'])->name('users.delete');
 Route::get('/project-list', [ProjectList::class, 'index'])->name('projectlist');
-Route::get('/project-add', [ProjectController::class, 'list'])->name('project_list.create');
-Route::post('/project-add', [ProjectController::class, 'store'])->name('project_list.create.submit');
-Route::get('/manage-project/{id}', [ProjectController::class, 'manage'])->name('project_list.update');
-Route::post('/manage-project', [ProjectController::class, 'edit'])->name('project_list.update.submit');
+Route::get('/project-add', [ProjectList::class, 'list'])->name('project_list.create');
+Route::post('/project-add', [ProjectList::class, 'store'])->name('project_list.create.submit');
+Route::get('/manage-project/{id}', [ProjectList::class, 'manage'])->name('project_list.update');
+Route::post('/manage-project', [ProjectList::class, 'edit'])->name('project_list.update.submit');
+Route::delete('project/delete/{id}', [ProjectList::class, 'delete'])->name('project_list.delete');
 
 // pages
 Route::get('/pages/account-settings-account', [AccountSettingsAccount::class, 'index'])->name('pages-account-settings-account');
