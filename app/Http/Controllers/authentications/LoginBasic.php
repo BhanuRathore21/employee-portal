@@ -31,6 +31,7 @@ class LoginBasic extends Controller
           Auth::login($user);
           $customValue = 'user';
           $request->session()->put('usertype', $customValue);
+          $request->session()->put('user_id', $user->id);
           return redirect()->route('dashboards-analytics')->with('success', 'Login successful');
         }
 

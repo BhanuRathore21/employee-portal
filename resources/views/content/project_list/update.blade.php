@@ -25,9 +25,11 @@
                             <label for="employee">Employee</label>
                             <select name="employee[]" id="employee" class="form-control @error('employee') is-invalid @enderror" multiple required>
                                 @foreach($users as $user)
+                                    @if($user->type == 'user')
                                     <option value="{{ $user->id }}" {{ $user->id == $project->employee ? 'selected' : '' }}>
                                         {{ $user->username }}
                                     </option>
+                                    @endif
                                 @endforeach
                             </select>                                                  
                             @error('employee')
