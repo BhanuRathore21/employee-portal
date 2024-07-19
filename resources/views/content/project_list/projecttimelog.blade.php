@@ -54,7 +54,6 @@
         <td><span class="badge rounded-pill bg-label-primary me-1">{{ $project->active == 1 ? 'Active' : 'Inactive' }}</span></td>
         <td><strong>{{ $project->created_at->format('d F Y g:i A') }}</strong></td>
         <td>
-          @if(session('usertype') === 'admin')
             <a href="{{ route('project_list.update', ['id' => $project->id]) }}"><i class="fas fa-edit fa-lg"></i></a>
             <form id="delete-form-{{ $project->id }}" action="{{ route('project_list.delete', ['id' => $project->id]) }}" method="POST" style="display: none;">
                 @csrf
@@ -63,11 +62,6 @@
             <a href="#" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-{{ $project->id }}').submit(); }">
                 <i class="fas fa-trash fa-lg"></i>
              </a>
-          @elseif(session('usertype') === 'user')
-             <a href="{{ route('project_list.update', ['id' => $project->id,'employee_id'=>session('usertype')]) }}"><i class="fas fa-edit fa-lg"></i></a>
-          @else
-            <p>No Project Found</p>
-          @endif   
       </td>
     </tr>
         @endforeach

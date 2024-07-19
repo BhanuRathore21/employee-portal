@@ -14,9 +14,9 @@
     },
     {
       "url": "/project-list",
-      "name": "Project List",
+      "name": "Projects",
       "icon": "menu-icon tf-icons mdi mdi-folder-outline",
-      "slug": "users"
+      "slug": "project-list"
     },
     {
       "name": "Account",
