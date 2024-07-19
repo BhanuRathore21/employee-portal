@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\User;
+use App\Models\ProjectTimeLog;
 class ProjectList extends Controller
 {
   public function index()
@@ -20,6 +21,7 @@ class ProjectList extends Controller
               foreach ($employeeIds as $employeeId) {
                   if ($users->has($employeeId)) {
                       $employeeNames[] = $users[$employeeId]->username; 
+                    
                   }
               }
               $project->employee = implode(', ', $employeeNames); 
@@ -51,9 +53,12 @@ class ProjectList extends Controller
           'active'=>'nullable|string|max:1'
       ]);
   
-      $employeeIds = implode(',', $request->input('employee'));
+        $employeeIds = implode(',', $request->input('employee'));
 
-      Project::create(array_merge($request->except('employee'), ['employee' => $employeeIds]));
+        $project= Project::create(array_merge($request->except('employee'), ['employee' => $employeeIds]));
+      foreach ($request->input('employee') as $employeeId) {
+        $this->createProjectTimeLog($project->id, $employeeId);
+      }
   
       return redirect()->route('projectlist')->with('success', 'Project added successfully!');
   }
@@ -76,7 +81,15 @@ class ProjectList extends Controller
   
       return redirect()->route('projectlist')->with('success', 'Project Updated successfully!');
   }
-
+  protected function createProjectTimeLog($projectId, $employeeId)
+    {
+        $log = new ProjectTimeLog();
+        $log->project_id = $projectId;
+        $log->employee_id = $employeeId;    
+        $log->logtime = null;
+        $log->description = null;
+        $log->save();
+    }
   public function manage($id)
   {
       $project = Project::findOrFail($id);
