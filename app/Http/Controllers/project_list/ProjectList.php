@@ -81,7 +81,7 @@ class ProjectList extends Controller
   
       return redirect()->route('projectlist')->with('success', 'Project Updated successfully!');
   }
-  protected function createProjectTimeLog($projectId, $employeeId)
+  protected function createProjectTimeLog($projectId,$employeeId)
     {
         $log = new ProjectTimeLog();
         $log->project_id = $projectId;
@@ -97,21 +97,6 @@ class ProjectList extends Controller
       return view('content.project_list.update',['users' => $users,'project'=>$project]);
   }
   public function delete($id)
-  {
-      $project = Project::find($id);
-      if (!$project) {
-          return redirect()->back()->with('error', 'project not found.');
-      }
-  
-      try {
-          $project->delete();
-          return redirect()->route('projectlist')->with('success', 'Project deleted successfully.');
-      } catch (\Exception $e) {
-          \Log::error('Error deleting user: ' . $e->getMessage());
-          return redirect()->back()->with('error', 'Error deleting user. Please try again.');
-      }
-  }
-  public function addtimelog($id)
   {
       $project = Project::find($id);
       if (!$project) {

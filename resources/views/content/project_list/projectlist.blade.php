@@ -63,8 +63,9 @@
             <a href="#" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-{{ $project->id }}').submit(); }">
                 <i class="fas fa-trash fa-lg"></i>
              </a>
+             <a href="{{ route('project_list.tasklist', ['id' => $project->id]) }}"><i class="fas fa-eye fa-lg"></i></a>
           @elseif(session('usertype') === 'user')
-             <a href="{{ route('project_list.update', ['id' => $project->id,'employee_id'=>session('usertype')]) }}"><i class="fas fa-edit fa-lg"></i></a>
+             <a href="{{ route('project_list.timelog', ['id' => $project->id,'employee_id'=>session('usertype')]) }}"><i class="fas fa-edit fa-lg"></i></a>
           @else
             <p>No Project Found</p>
           @endif   
