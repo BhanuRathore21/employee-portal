@@ -9,20 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::table('project_tasks', function (Blueprint $table) {
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(2);
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
         Schema::table('project_tasks', function (Blueprint $table) {
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(2);
         });
     }
 };

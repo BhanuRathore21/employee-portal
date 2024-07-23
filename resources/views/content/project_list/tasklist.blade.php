@@ -36,6 +36,15 @@
                             <td><strong>{{ $task->total_time }}</strong></td>
                             <td><strong>{{ $task->created_at }}</strong></td>
                             <td>
+                                @if ($task->active == 1)
+                                    <span class="badge bg-label-success rounded-pill">Done</span>
+                                @elseif($task->active == 2)
+                                    <span class="badge bg-label-secondary rounded-pill">Pending</span>
+                                @elseif($task->active == 3)
+                                    <span class="badge bg-label-warning rounded-pill">Bug</span>
+                                @endif
+                            </td>
+                            <td>
                                 <a href="#">Edit</a> | <a href="#">Delete</a>
                             </td>
                         </tr>
