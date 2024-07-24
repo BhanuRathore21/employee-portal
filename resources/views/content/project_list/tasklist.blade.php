@@ -57,7 +57,13 @@
                                 </td>
                                 <td class="text-center">
                                     <a href="{{ route('project_list.tasksedit', ['id' => $task->id]) }}"><i class="fas fa-edit fa-lg"></i></a>
-                                    <a href="#"><i class="fas fa-trash fa-lg"></i></a>
+                                    <form id="delete-form-{{ $task->id }}" action="{{ route('project_list.tasksdelete', ['id' => $task->id]) }}" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                    <a href="#" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-{{ $task->id }}').submit(); }">
+                                        <i class="fas fa-trash fa-lg"></i>
+                                     </a>
                                 </td>
                             </tr>
                         @endif

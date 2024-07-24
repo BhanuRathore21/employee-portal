@@ -33,6 +33,7 @@ Route::get('/project/{id}/tasks/create', [ProjectTaskController::class, 'createf
 Route::post('/project/{id}/tasks/create', [ProjectTaskController::class, 'createtask'])->name('project_list.taskscreate.submit');
 Route::get('/project/{id}/tasks', [ProjectTaskController::class, 'index'])->name('project_list.tasklist');
 Route::get('/project/tasks/{id}', [ProjectTaskController::class, 'edittaskform'])->name('project_list.tasksedit');
+Route::delete('project/tasks/{id}', [ProjectTaskController::class, 'delete'])->name('project_list.tasksdelete');
 Route::post('/project/tasks/{id}', [ProjectTaskController::class, 'updatetask'])->name('project_list.tasksedit.submit');
 Route::post('/manage-project', [ProjectList::class, 'edit'])->name('project_list.update.submit');
 Route::delete('project/delete/{id}', [ProjectList::class, 'delete'])->name('project_list.delete');

@@ -65,7 +65,7 @@
              </a>
              <a href="{{ route('project_list.tasklist', ['id' => $project->id]) }}"><i class="fas fa-eye fa-lg"></i></a>
           @elseif(session('usertype') === 'user')
-             <a href="{{ route('project_list.timelog', ['id' => $project->id,'employee_id'=>session('usertype')]) }}"><i class="fas fa-edit fa-lg"></i></a>
+            <a href="{{ route('project_list.tasklist', ['id' => $project->id]) }}"><i class="fas fa-eye fa-lg"></i></a>
           @else
             <p>No Project Found</p>
           @endif   
