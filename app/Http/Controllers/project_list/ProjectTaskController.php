@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\ProjectTask;
-use App\Models\TaskTimeLog;
+use App\Models\User;
 
 class ProjectTaskController extends Controller
 {
@@ -19,14 +19,16 @@ class ProjectTaskController extends Controller
     public function createform($id)
     {
         $project = Project::findOrFail($id);
-        return view('content.project_list.taskscreate', compact('project'));
+        $users = User::where('type', 'user')->get();
+        return view('content.project_list.taskscreate', compact('project','users'));
     }
 
     public function edittaskform($id)
     {
         $projecttask = ProjectTask::findOrFail($id);
         $project = Project::findOrFail($projecttask->project_id);
-        return view('content.project_list.tasksedit', compact('projecttask', 'project'));
+        $users = User::where('type', 'user')->get();
+        return view('content.project_list.tasksedit', compact('projecttask', 'project','users'));
     }
 
     public function updatetask(Request $request, $id)

@@ -28,7 +28,6 @@ Route::get('/project-list', [ProjectList::class, 'index'])->name('projectlist');
 Route::get('/project-add', [ProjectList::class, 'list'])->name('project_list.create');
 Route::post('/project-add', [ProjectList::class, 'store'])->name('project_list.create.submit');
 Route::get('/manage-project/{id}', [ProjectList::class, 'manage'])->name('project_list.update');
-Route::get('/timelog-project/{id}', [ProjectList::class, 'addtimelog'])->name('project_list.timelog');
 Route::get('/project/{id}/tasks/create', [ProjectTaskController::class, 'createform'])->name('project_list.taskscreate');
 Route::post('/project/{id}/tasks/create', [ProjectTaskController::class, 'createtask'])->name('project_list.taskscreate.submit');
 Route::get('/project/{id}/tasks', [ProjectTaskController::class, 'index'])->name('project_list.tasklist');
