@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('project_tasks', function (Blueprint $table) {
-            $table->integer('total_time')->default(0);
+            $table->time('total_time')->default(0);
         });
     }
 

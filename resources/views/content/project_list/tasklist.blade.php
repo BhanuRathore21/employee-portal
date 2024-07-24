@@ -56,7 +56,7 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <a href="#"><i class="fas fa-edit fa-lg"></i></a>
+                                    <a href="{{ route('project_list.tasksedit', ['id' => $task->id]) }}"><i class="fas fa-edit fa-lg"></i></a>
                                     <a href="#"><i class="fas fa-trash fa-lg"></i></a>
                                 </td>
                             </tr>
