@@ -72,19 +72,19 @@ class ProjectTaskController extends Controller
         return view('tasks.addtimelog', compact('task'));
     }
 
-    public function storeTimeLog(Request $request, $project_id, $task_id)
+    public function delete($id)
     {
-        $request->validate([
-            'hours' => 'required|integer|min:0',
-            'minutes' => 'required|integer|min:0|max:59',
-        ]);
-
-        $timeLog = new TaskTimeLog();
-        $timeLog->task_id = $task_id;
-        $timeLog->hours = $request->input('hours');
-        $timeLog->minutes = $request->input('minutes');
-        $timeLog->save();
-
-        return redirect()->route('tasks.addtimelog', [$project_id, $task_id])->with('success', 'Time log added successfully.');
+        $task = ProjectTask::find($id);
+        if (!$task) {
+            return redirect()->back()->with('error', 'Task not found.');
+        }
+    
+        try {
+            $task->delete();
+            return redirect()->route('project_list.tasklist', $task->project_id)->with('success', 'Task deleted successfully.');
+        } catch (\Exception $e) {
+            \Log::error('Error deleting user: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error deleting user. Please try again.');
+        }
     }
 }
