@@ -22,6 +22,37 @@ class ProjectTaskController extends Controller
         return view('content.project_list.taskscreate', compact('project'));
     }
 
+    public function edittaskform($id)
+    {
+        $projecttask = ProjectTask::findOrFail($id);
+        $project = Project::findOrFail($projecttask->project_id);
+        return view('content.project_list.tasksedit', compact('projecttask', 'project'));
+    }
+
+    public function updatetask(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'hours' => 'required|integer|min:0|max:23', 
+            'minutes' => 'required|integer|min:0|max:59', 
+            'status' => 'required|in:1,2,3',
+        ]);
+        $projecttask = ProjectTask::findOrFail($id);
+        $existingTotalTime = $projecttask->total_time;
+        list($existingHours, $existingMinutes, $existingSeconds) = explode(':', $existingTotalTime);
+        $newHours = $existingHours + $validatedData['hours'];
+        $newMinutes = $existingMinutes + $validatedData['minutes'];
+        if ($newMinutes >= 60) {
+            $newHours += floor($newMinutes / 60);
+            $newMinutes = $newMinutes % 60;
+        }
+        $newTotalTime = sprintf('%02d:%02d:%02d', $newHours, $newMinutes, $existingSeconds);
+        $projecttask->total_time = $newTotalTime;
+        $projecttask->name = $validatedData['name'];
+        $projecttask->status = $validatedData['status'];
+        $projecttask->save();
+        return redirect()->route('project_list.tasklist', $projecttask->project_id)->with('success', 'Task details updated successfully.');
+    }
     public function createtask(Request $request, $id)
     {
         $request->validate([
