@@ -64,6 +64,7 @@
                                     <a href="#" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-{{ $task->id }}').submit(); }">
                                         <i class="fas fa-trash fa-lg"></i>
                                      </a>
+                                     <a href="{{ route('project_list.taskaddtimelog', ['id' => $task->id]) }}"><i class="fas fa-plus fa-lg"></i></a>
                                 </td>
                             </tr>
                         @endif
