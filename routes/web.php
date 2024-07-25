@@ -27,14 +27,14 @@ Route::delete('user/delete/{id}', [UsersList::class, 'delete'])->name('users.del
 Route::get('/project-list', [ProjectList::class, 'index'])->name('projectlist');
 Route::get('/project-add', [ProjectList::class, 'list'])->name('project_list.create');
 Route::post('/project-add', [ProjectList::class, 'store'])->name('project_list.create.submit');
-Route::get('/manage-project/{id}', [ProjectList::class, 'manage'])->name('project_list.update');
+Route::get('/manage-project/{id}', [ProjectList::class, 'projecteditform'])->name('project_list.update');
 Route::get('/project/{id}/tasks/create', [ProjectTaskController::class, 'createform'])->name('project_list.taskscreate');
 Route::post('/project/{id}/tasks/create', [ProjectTaskController::class, 'createtask'])->name('project_list.taskscreate.submit');
 Route::get('/project/{id}/tasks', [ProjectTaskController::class, 'index'])->name('project_list.tasklist');
 Route::get('/project/tasks/{id}', [ProjectTaskController::class, 'edittaskform'])->name('project_list.tasksedit');
 Route::delete('project/tasks/{id}', [ProjectTaskController::class, 'delete'])->name('project_list.tasksdelete');
 Route::post('/project/tasks/{id}', [ProjectTaskController::class, 'updatetask'])->name('project_list.tasksedit.submit');
-Route::post('/manage-project', [ProjectList::class, 'edit'])->name('project_list.update.submit');
+Route::post('/manage-project/{id}', [ProjectList::class, 'editprojectsubmit'])->name('project_list.update.submit');
 Route::delete('project/delete/{id}', [ProjectList::class, 'delete'])->name('project_list.delete');
 
 // pages

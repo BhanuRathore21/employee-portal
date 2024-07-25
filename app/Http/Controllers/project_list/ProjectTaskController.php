@@ -37,6 +37,8 @@ class ProjectTaskController extends Controller
             'name' => 'required|string|max:255',
             'hours' => 'required|integer|min:0|max:23', 
             'minutes' => 'required|integer|min:0|max:59', 
+            'employee' => 'required|array',
+            'employee.*' => 'exists:users,id', 
             'status' => 'required|in:1,2,3',
         ]);
         $projecttask = ProjectTask::findOrFail($id);
@@ -52,6 +54,8 @@ class ProjectTaskController extends Controller
         $projecttask->total_time = $newTotalTime;
         $projecttask->name = $validatedData['name'];
         $projecttask->status = $validatedData['status'];
+        $employeeIds = implode(',', $request->input('employee'));
+        $projecttask->user_id=array_merge($request->except('employee'), ['employee' => $employeeIds]);
         $projecttask->save();
         return redirect()->route('project_list.tasklist', $projecttask->project_id)->with('success', 'Task details updated successfully.');
     }

@@ -9,7 +9,7 @@
             <div class="card">
                 <h3 class="m-3">Manage Project</h3>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('project_list.update.submit') }}">
+                    <form method="POST" action="{{ route('project_list.update.submit', $project->id) }}">
                         @csrf
                         <div class="form-group">
                             <label for="name">Project Name</label>
