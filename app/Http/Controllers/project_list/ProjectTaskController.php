@@ -35,27 +35,24 @@ class ProjectTaskController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'hours' => 'required|integer|min:0|max:23', 
-            'minutes' => 'required|integer|min:0|max:59', 
             'employee' => 'required|array',
             'employee.*' => 'exists:users,id', 
             'status' => 'required|in:1,2,3',
         ]);
+        dd($validatedData);
         $projecttask = ProjectTask::findOrFail($id);
-        $existingTotalTime = $projecttask->total_time;
-        list($existingHours, $existingMinutes, $existingSeconds) = explode(':', $existingTotalTime);
-        $newHours = $existingHours + $validatedData['hours'];
-        $newMinutes = $existingMinutes + $validatedData['minutes'];
-        if ($newMinutes >= 60) {
-            $newHours += floor($newMinutes / 60);
-            $newMinutes = $newMinutes % 60;
-        }
-        $newTotalTime = sprintf('%02d:%02d:%02d', $newHours, $newMinutes, $existingSeconds);
-        $projecttask->total_time = $newTotalTime;
         $projecttask->name = $validatedData['name'];
         $projecttask->status = $validatedData['status'];
-        $employeeIds = implode(',', $request->input('employee'));
-        $projecttask->user_id=array_merge($request->except('employee'), ['employee' => $employeeIds]);
+        $employeeIds = $request->$validatedData['employee'];
+        if (count($employeeIds) > 1) {
+            $employeeIds = implode(',', $employeeIds);
+        } else if (count($employeeIds) == 1) {
+            $employeeIds = reset($employeeIds);
+        } else {
+            $employeeIds = null;
+        }
+        $projecttask->user_id=$employeeIds;
+        $projecttask->updated_at = now();
         $projecttask->save();
         return redirect()->route('project_list.tasklist', $projecttask->project_id)->with('success', 'Task details updated successfully.');
     }
@@ -72,10 +69,33 @@ class ProjectTaskController extends Controller
         return redirect()->route('project_list.tasklist', $id)->with('success', 'Task added successfully.');
     }
 
-    public function addTimeLogForm($project_id, $task_id)
+    public function addTimeLogForm($id)
     {
-        $task = ProjectTask::findOrFail($task_id);
-        return view('tasks.addtimelog', compact('task'));
+        $projecttask = ProjectTask::findOrFail($id);
+        $project = Project::findOrFail($projecttask->project_id);
+        return view('project_list.taskaddtimelog', compact('projecttask', 'project'));
+    }
+
+    public function addTimeLogFormSubmit(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'hours' => 'required|integer|min:0|max:23', 
+            'minutes' => 'required|integer|min:0|max:59', 
+        ]);
+        $projecttask = ProjectTask::findOrFail($id);
+        $existingTotalTime = $projecttask->total_time;
+        list($existingHours, $existingMinutes, $existingSeconds) = explode(':', $existingTotalTime);
+        $newHours = $existingHours + $validatedData['hours'];
+        $newMinutes = $existingMinutes + $validatedData['minutes'];
+        if ($newMinutes >= 60) {
+            $newHours += floor($newMinutes / 60);
+            $newMinutes = $newMinutes % 60;
+        }
+        $newTotalTime = sprintf('%02d:%02d:%02d', $newHours, $newMinutes, $existingSeconds);
+        $projecttask->total_time = $newTotalTime;
+        $projecttask->updated_at = now();
+        $projecttask->save();
+        return redirect()->route('project_list.tasklist', $projecttask->project_id)->with('success', 'Task details updated successfully.');
     }
 
     public function delete($id)

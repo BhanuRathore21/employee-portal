@@ -20,27 +20,6 @@
                     <input type="text" class="form-control" id="name" name="name" value="{{ $projecttask->name }}"
                         required>
                 </div>
-
-                <div class="mb-3">
-                    <label for="hours">Add Time:</label>
-                    <div class="input-group">
-                        <input type="number" name="hours" id="hours" class="form-control" placeholder="Hours"
-                            value="" required>
-                        <div class="input-group-append">
-                            <span class="input-group-text">hours</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <div class="input-group">
-                        <input type="number" name="minutes" id="minutes" class="form-control" placeholder="Minutes"
-                            value="" required>
-                        <div class="input-group-append">
-                            <span class="input-group-text">mins</span>
-                        </div>
-                    </div>
-                </div>
                 <div class="mb-3">
                     <div class="form-group">
                         <label for="employee">Employee</label>
