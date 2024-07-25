@@ -20,7 +20,7 @@ class ProjectTaskController extends Controller
     {
         $project = Project::findOrFail($id);
         $users = User::where('type', 'user')->get();
-        return view('content.project_list.taskscreate', compact('project','users'));
+        return view('content.project_list.taskscreate', compact('project', 'users'));
     }
 
     public function edittaskform($id)
@@ -28,18 +28,60 @@ class ProjectTaskController extends Controller
         $projecttask = ProjectTask::findOrFail($id);
         $project = Project::findOrFail($projecttask->project_id);
         $users = User::where('type', 'user')->get();
-        return view('content.project_list.tasksedit', compact('projecttask', 'project','users'));
+        return view('content.project_list.tasksedit', compact('projecttask', 'project', 'users'));
     }
 
     public function updatetask(Request $request, $id)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'hours' => 'required|integer|min:0|max:23', 
-            'minutes' => 'required|integer|min:0|max:59', 
-            'employee' => 'required|array',
-            'employee.*' => 'exists:users,id', 
             'status' => 'required|in:1,2,3',
+        ]);
+        $projecttask = ProjectTask::findOrFail($id);
+        $projecttask->name = $validatedData['name'];
+        $projecttask->status = $validatedData['status'];
+        $employeeIds = $request->input('employee');
+        if ($employeeIds) {
+            if (count($employeeIds) > 1) {
+                $employeeIds = implode(',', $employeeIds);
+            } else if (count($employeeIds) == 1) {
+                $employeeIds = reset($employeeIds);
+            } else {
+                $employeeIds = null;
+            }
+            $projecttask->user_id = $employeeIds;
+        }
+        $projecttask->updated_at = now();
+        $projecttask->save();
+        return redirect()->route('project_list.tasklist', $projecttask->project_id)
+            ->with('success', 'Task details updated successfully.');
+    }
+
+    public function createtask(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $task = new ProjectTask();
+        $task->project_id = $id;
+        $task->user_id = auth()->user()->id;
+        $task->name = $request->input('name');
+        $task->save();
+        return redirect()->route('project_list.tasklist', $id)->with('success', 'Task added successfully.');
+    }
+
+    public function addTimeLogForm($id)
+    {
+        $projecttask = ProjectTask::findOrFail($id);
+        $project = Project::findOrFail($projecttask->project_id);
+        return view('project_list.taskaddtimelog', compact('projecttask', 'project'));
+    }
+
+    public function addTimeLogFormSubmit(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'hours' => 'required|integer|min:0|max:23',
+            'minutes' => 'required|integer|min:0|max:59',
         ]);
         $projecttask = ProjectTask::findOrFail($id);
         $existingTotalTime = $projecttask->total_time;
@@ -52,30 +94,9 @@ class ProjectTaskController extends Controller
         }
         $newTotalTime = sprintf('%02d:%02d:%02d', $newHours, $newMinutes, $existingSeconds);
         $projecttask->total_time = $newTotalTime;
-        $projecttask->name = $validatedData['name'];
-        $projecttask->status = $validatedData['status'];
-        $employeeIds = implode(',', $request->input('employee'));
-        $projecttask->user_id=array_merge($request->except('employee'), ['employee' => $employeeIds]);
+        $projecttask->updated_at = now();
         $projecttask->save();
         return redirect()->route('project_list.tasklist', $projecttask->project_id)->with('success', 'Task details updated successfully.');
-    }
-    public function createtask(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-        $task = new ProjectTask();
-        $task->project_id = $id;
-        $task->user_id = auth()->user()->id; 
-        $task->name = $request->input('name');
-        $task->save();
-        return redirect()->route('project_list.tasklist', $id)->with('success', 'Task added successfully.');
-    }
-
-    public function addTimeLogForm($project_id, $task_id)
-    {
-        $task = ProjectTask::findOrFail($task_id);
-        return view('tasks.addtimelog', compact('task'));
     }
 
     public function delete($id)
@@ -84,7 +105,7 @@ class ProjectTaskController extends Controller
         if (!$task) {
             return redirect()->back()->with('error', 'Task not found.');
         }
-    
+
         try {
             $task->delete();
             return redirect()->route('project_list.tasklist', $task->project_id)->with('success', 'Task deleted successfully.');
