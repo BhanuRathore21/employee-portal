@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\ProjectTask;
-use App\Models\TaskTimeLog;
+use App\Models\User;
 
 class ProjectTaskController extends Controller
 {
@@ -19,14 +19,16 @@ class ProjectTaskController extends Controller
     public function createform($id)
     {
         $project = Project::findOrFail($id);
-        return view('content.project_list.taskscreate', compact('project'));
+        $users = User::where('type', 'user')->get();
+        return view('content.project_list.taskscreate', compact('project','users'));
     }
 
     public function edittaskform($id)
     {
         $projecttask = ProjectTask::findOrFail($id);
         $project = Project::findOrFail($projecttask->project_id);
-        return view('content.project_list.tasksedit', compact('projecttask', 'project'));
+        $users = User::where('type', 'user')->get();
+        return view('content.project_list.tasksedit', compact('projecttask', 'project','users'));
     }
 
     public function updatetask(Request $request, $id)
@@ -35,6 +37,8 @@ class ProjectTaskController extends Controller
             'name' => 'required|string|max:255',
             'hours' => 'required|integer|min:0|max:23', 
             'minutes' => 'required|integer|min:0|max:59', 
+            'employee' => 'required|array',
+            'employee.*' => 'exists:users,id', 
             'status' => 'required|in:1,2,3',
         ]);
         $projecttask = ProjectTask::findOrFail($id);
@@ -50,6 +54,8 @@ class ProjectTaskController extends Controller
         $projecttask->total_time = $newTotalTime;
         $projecttask->name = $validatedData['name'];
         $projecttask->status = $validatedData['status'];
+        $employeeIds = implode(',', $request->input('employee'));
+        $projecttask->user_id=array_merge($request->except('employee'), ['employee' => $employeeIds]);
         $projecttask->save();
         return redirect()->route('project_list.tasklist', $projecttask->project_id)->with('success', 'Task details updated successfully.');
     }
