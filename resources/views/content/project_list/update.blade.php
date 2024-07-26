@@ -49,7 +49,19 @@
                             @enderror
                         </div>
 
-                        <!-- Add other fields as needed -->
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status" name="status" class="form-control @error('status') is-invalid @enderror" required>
+                                <option value="2" {{ $project->active == 2 ? 'selected' : '' }}>Pending</option>
+                                <option value="3" {{ $project->active == 3 ? 'selected' : '' }}>In Progress</option>
+                                <option value="1" {{ $project->active == 1 ? 'selected' : '' }}>Done</option>
+                            </select>
+                            @error('status')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
                         <button type="submit" class="btn btn-primary mt-3" style="float: right;">Save</button>
                     </form>
