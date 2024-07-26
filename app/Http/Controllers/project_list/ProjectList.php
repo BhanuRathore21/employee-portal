@@ -88,6 +88,7 @@ class ProjectList extends Controller
     
         $project->name = $request->input('name');
         $project->client = $request->input('client');
+        $project->active = $request->input('status');
         $project->employee = $employeeIds; 
         $project->save();
 
